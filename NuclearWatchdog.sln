@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuclearWatchdog", "NuclearWatchdog\NuclearWatchdog.csproj", "{10220786-4952-4B76-A9CF-3E1C1A778DB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartbeatReceiver", "HeartbeatReceiver\HeartbeatReceiver.csproj", "{F1FF4770-3398-4440-8F9A-76FA7727902C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10220786-4952-4B76-A9CF-3E1C1A778DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10220786-4952-4B76-A9CF-3E1C1A778DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10220786-4952-4B76-A9CF-3E1C1A778DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10220786-4952-4B76-A9CF-3E1C1A778DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
