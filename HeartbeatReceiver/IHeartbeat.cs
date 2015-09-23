@@ -11,10 +11,10 @@ namespace HeartbeatReceiver
     public interface IHeartbeat
     {
         [OperationContract]
-        void Register();
+        string Register();
         [OperationContract]
-        void Unregister();
+        void Unregister(string id);
         [OperationContract]
-        void Beat();
+        void Beat(string id);
     }
 }

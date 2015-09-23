@@ -16,22 +16,22 @@ namespace NuclearWatchdog.Heartbeat {
     public interface IHeartbeat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Register", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/RegisterResponse")]
-        void Register();
+        string Register();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Register", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/RegisterResponse")]
-        System.Threading.Tasks.Task RegisterAsync();
+        System.Threading.Tasks.Task<string> RegisterAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Unregister", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/UnregisterResponse")]
-        void Unregister();
+        void Unregister(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Unregister", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/UnregisterResponse")]
-        System.Threading.Tasks.Task UnregisterAsync();
+        System.Threading.Tasks.Task UnregisterAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Beat", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/BeatResponse")]
-        void Beat();
+        void Beat(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Beat", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/BeatResponse")]
-        System.Threading.Tasks.Task BeatAsync();
+        System.Threading.Tasks.Task BeatAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,28 +61,28 @@ namespace NuclearWatchdog.Heartbeat {
                 base(binding, remoteAddress) {
         }
         
-        public void Register() {
-            base.Channel.Register();
+        public string Register() {
+            return base.Channel.Register();
         }
         
-        public System.Threading.Tasks.Task RegisterAsync() {
+        public System.Threading.Tasks.Task<string> RegisterAsync() {
             return base.Channel.RegisterAsync();
         }
         
-        public void Unregister() {
-            base.Channel.Unregister();
+        public void Unregister(string id) {
+            base.Channel.Unregister(id);
         }
         
-        public System.Threading.Tasks.Task UnregisterAsync() {
-            return base.Channel.UnregisterAsync();
+        public System.Threading.Tasks.Task UnregisterAsync(string id) {
+            return base.Channel.UnregisterAsync(id);
         }
         
-        public void Beat() {
-            base.Channel.Beat();
+        public void Beat(string id) {
+            base.Channel.Beat(id);
         }
         
-        public System.Threading.Tasks.Task BeatAsync() {
-            return base.Channel.BeatAsync();
+        public System.Threading.Tasks.Task BeatAsync(string id) {
+            return base.Channel.BeatAsync(id);
         }
     }
 }

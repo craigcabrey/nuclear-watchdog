@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://SWEN.755.Heartbeat/Imports">
       <xsd:import schemaLocation="http://localhost:8001/?xsd=xsd0" namespace="http://SWEN.755.Heartbeat" />
+      <xsd:import schemaLocation="http://localhost:8001/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IHeartbeat_Register_InputMessage">

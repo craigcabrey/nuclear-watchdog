@@ -30,22 +30,20 @@ namespace NuclearWatchdog
                 Thread.Sleep(100);
 
                 this.Temperature = this.randomGenerator.Next(MINIMUM_TEMPERATURE, MAXIMUM_TEMPERATURE);
-                if (this.Temperature == MINIMUM_TEMPERATURE)
-                {
-                    this.Temperature = 0;
-                }
             }
         }
     }
 
     class ReactorMonitor
     {
+        private Random random;
         private HeartbeatSender heartbeatSender;
         private Reactor reactor;
         private double threshold;
 
         public ReactorMonitor(HeartbeatSender heartbeatSender, Reactor reactor, double threshold)
         {
+            this.random = new Random();
             this.heartbeatSender = heartbeatSender;
             this.reactor = reactor;
             this.threshold = threshold;
@@ -61,6 +59,10 @@ namespace NuclearWatchdog
                 if (this.reactor.Temperature > this.threshold)
                 {
                     Console.WriteLine("Reactor is critical!");
+                    if (this.random.NextDouble() > 0.5)
+                    {
+                        throw new Exception("boom");
+                    }
                 }
             }
         }
@@ -69,24 +71,26 @@ namespace NuclearWatchdog
     class HeartbeatSender
     {
         private HeartbeatClient client;
+        private string guid;
 
         public HeartbeatSender(HeartbeatClient client)
         {
             this.client = client;
+            this.guid = null;
         }
 
         public void Register()
         {
-            Console.WriteLine("Registering with heartbeat receiver...");
-
-            this.client.Register();
+            Console.Write("Registering with heartbeat receiver... ");
+            this.guid = this.client.Register();
+            Console.WriteLine(this.guid);
         }
 
         public void Unregister()
         {
             Console.WriteLine("Unregistering from heartbeat receiver...");
 
-            this.client.Unregister();
+            this.client.Unregister(this.guid);
         }
 
         public void Beat()
@@ -96,7 +100,7 @@ namespace NuclearWatchdog
                 Thread.Sleep(500);
                 Console.WriteLine("Sending heartbeat...");
 
-                this.client.Beat();
+                this.client.Beat(this.guid);
             }
         }
     }
@@ -123,8 +127,8 @@ namespace NuclearWatchdog
             Thread heartbeatThread = new Thread(new ThreadStart(heartbeatSender.Beat));
             heartbeatThread.Start();
 
-            // Run for 30 seconds
-            Thread.Sleep(30000);
+            // Run for 60 seconds
+            Thread.Sleep(60000);
             
             reactorMonitorThread.Abort();
             reactorMonitorThread.Join();
