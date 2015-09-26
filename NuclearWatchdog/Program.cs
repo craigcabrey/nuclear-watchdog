@@ -113,7 +113,15 @@ namespace NuclearWatchdog
 
             HeartbeatClient client = new HeartbeatClient();
             HeartbeatSender heartbeatSender = new HeartbeatSender(client);
-            heartbeatSender.Register();
+
+            try {
+                heartbeatSender.Register();
+            } catch (System.ServiceModel.EndpointNotFoundException)
+            {
+                Console.WriteLine("Failed to connect to the heartbeat receiver service.");
+                Console.WriteLine("Are you sure the service is running?");
+                Environment.Exit(1);
+            }
 
             Reactor reactor = new Reactor();
             ReactorMonitor reactorMonitor = new ReactorMonitor(heartbeatSender, reactor, 350);
