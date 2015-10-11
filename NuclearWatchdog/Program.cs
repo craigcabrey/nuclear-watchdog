@@ -1,47 +1,18 @@
 ﻿using System;
 using System.Threading;
 using NuclearWatchdog.Heartbeat;
+using NuclearWatchdog.Reactor;
 
 namespace NuclearWatchdog
 {
-    class Reactor
-    {
-        const int MINIMUM_TEMPERATURE = 100;
-        const int MAXIMUM_TEMPERATURE = 400;
-
-        private Random randomGenerator;
-
-        public int Temperature
-        {
-            get;
-            set;
-        }
-
-        public Reactor()
-        {
-            this.randomGenerator = new Random();
-            this.Temperature = this.randomGenerator.Next(MINIMUM_TEMPERATURE, MAXIMUM_TEMPERATURE);
-        }
-
-        public void React()
-        {
-            while (true)
-            {
-                Thread.Sleep(100);
-
-                this.Temperature = this.randomGenerator.Next(MINIMUM_TEMPERATURE, MAXIMUM_TEMPERATURE);
-            }
-        }
-    }
-
     class ReactorMonitor
     {
         private Random random;
         private HeartbeatSender heartbeatSender;
-        private Reactor reactor;
+        private ReactorClient reactor;
         private double threshold;
 
-        public ReactorMonitor(HeartbeatSender heartbeatSender, Reactor reactor, double threshold)
+        public ReactorMonitor(HeartbeatSender heartbeatSender, ReactorClient reactor, double threshold)
         {
             this.random = new Random();
             this.heartbeatSender = heartbeatSender;
@@ -55,13 +26,15 @@ namespace NuclearWatchdog
             {
                 Thread.Sleep(500);
 
-                Console.WriteLine("Reactor temperature is now: {0}", this.reactor.Temperature);
-                if (this.reactor.Temperature > this.threshold)
+                int temperature = this.reactor.GetTemperature();
+                Console.WriteLine("Reactor temperature is now: {0}", temperature);
+                if (temperature > this.threshold)
                 {
-                    Console.WriteLine("Reactor is critical!");
-                    if (this.random.NextDouble() > 0.5)
+                    Console.WriteLine("[ALARM] Reactor is critical!");
+                    if (HeartbeatSender.isActive && this.random.NextDouble() > 0.5)
                     {
-                        throw new Exception("boom");
+                        Thread.Sleep(5000);
+                        throw new Exception("system crash");
                     }
                 }
             }
@@ -72,18 +45,33 @@ namespace NuclearWatchdog
     {
         private HeartbeatClient client;
         private string guid;
+        public static bool isActive;
 
         public HeartbeatSender(HeartbeatClient client)
         {
             this.client = client;
             this.guid = null;
+            isActive = false;
         }
 
         public void Register()
         {
             Console.Write("Registering with heartbeat receiver... ");
-            this.guid = this.client.Register();
-            Console.WriteLine(this.guid);
+            Tuple<bool, string> result = this.client.Register();
+
+            isActive = result.Item1;
+            this.guid = result.Item2;
+
+            Console.WriteLine("ID: {0}", this.guid);
+
+            if (isActive)
+            {
+                Console.WriteLine("[ALERT] Registered in active mode.");
+            }
+            else
+            {
+                Console.WriteLine("[ALERT] Registered in standby mode.");
+            }
         }
 
         public void Unregister()
@@ -100,7 +88,12 @@ namespace NuclearWatchdog
                 Thread.Sleep(500);
                 Console.WriteLine("Sending heartbeat...");
 
-                this.client.Beat(this.guid);
+                bool isPromoted = this.client.Beat(this.guid);
+                if (!isActive && isPromoted)
+                {
+                    isActive = true;
+                    Console.WriteLine("[ALERT] Promoted to active!");
+                }
             }
         }
     }
@@ -123,11 +116,8 @@ namespace NuclearWatchdog
                 Environment.Exit(1);
             }
 
-            Reactor reactor = new Reactor();
+            ReactorClient reactor = new ReactorClient();
             ReactorMonitor reactorMonitor = new ReactorMonitor(heartbeatSender, reactor, 350);
-
-            Thread reactorThread = new Thread(new ThreadStart(reactor.React));
-            reactorThread.Start();
 
             Thread reactorMonitorThread = new Thread(new ThreadStart(reactorMonitor.Monitor));
             reactorMonitorThread.Start();
@@ -140,9 +130,6 @@ namespace NuclearWatchdog
             
             reactorMonitorThread.Abort();
             reactorMonitorThread.Join();
-
-            reactorThread.Abort();
-            reactorThread.Join();
 
             heartbeatThread.Abort();
             heartbeatThread.Join();

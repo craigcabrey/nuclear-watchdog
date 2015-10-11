@@ -255,7 +255,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8001/HeartbeatService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-3FOME7N\Craig Cabrey</Upn>
+          <Upn>vm\craigcabrey</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

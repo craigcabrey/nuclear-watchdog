@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://SWEN.755.Reactor" elementFormDefault="qualified" targetNamespace="http://SWEN.755.Reactor" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="GetTemperature">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTemperatureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTemperatureResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

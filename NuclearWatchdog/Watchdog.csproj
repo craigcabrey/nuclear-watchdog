@@ -52,6 +52,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Reactor\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -63,12 +68,39 @@
     <None Include="Service References\Heartbeat\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\Heartbeat\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Reactor\item.wsdl" />
+    <None Include="Service References\Reactor\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Reactor\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Reactor\Reactor.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Heartbeat\" />
+    <WCFMetadataStorage Include="Service References\Reactor\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Reactor\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Reactor\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Reactor\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Reactor\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Heartbeat\item.disco" />

@@ -16,10 +16,10 @@ namespace NuclearWatchdog.Heartbeat {
     public interface IHeartbeat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Register", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/RegisterResponse")]
-        string Register();
+        System.Tuple<bool, string> Register();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Register", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/RegisterResponse")]
-        System.Threading.Tasks.Task<string> RegisterAsync();
+        System.Threading.Tasks.Task<System.Tuple<bool, string>> RegisterAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Unregister", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/UnregisterResponse")]
         void Unregister(string id);
@@ -28,10 +28,10 @@ namespace NuclearWatchdog.Heartbeat {
         System.Threading.Tasks.Task UnregisterAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Beat", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/BeatResponse")]
-        void Beat(string id);
+        bool Beat(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://SWEN.755.Heartbeat/IHeartbeat/Beat", ReplyAction="http://SWEN.755.Heartbeat/IHeartbeat/BeatResponse")]
-        System.Threading.Tasks.Task BeatAsync(string id);
+        System.Threading.Tasks.Task<bool> BeatAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,11 +61,11 @@ namespace NuclearWatchdog.Heartbeat {
                 base(binding, remoteAddress) {
         }
         
-        public string Register() {
+        public System.Tuple<bool, string> Register() {
             return base.Channel.Register();
         }
         
-        public System.Threading.Tasks.Task<string> RegisterAsync() {
+        public System.Threading.Tasks.Task<System.Tuple<bool, string>> RegisterAsync() {
             return base.Channel.RegisterAsync();
         }
         
@@ -77,11 +77,11 @@ namespace NuclearWatchdog.Heartbeat {
             return base.Channel.UnregisterAsync(id);
         }
         
-        public void Beat(string id) {
-            base.Channel.Beat(id);
+        public bool Beat(string id) {
+            return base.Channel.Beat(id);
         }
         
-        public System.Threading.Tasks.Task BeatAsync(string id) {
+        public System.Threading.Tasks.Task<bool> BeatAsync(string id) {
             return base.Channel.BeatAsync(id);
         }
     }

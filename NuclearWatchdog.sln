@@ -3,14 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuclearWatchdog", "NuclearWatchdog\NuclearWatchdog.csproj", "{10220786-4952-4B76-A9CF-3E1C1A778DB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watchdog", "NuclearWatchdog\Watchdog.csproj", "{10220786-4952-4B76-A9CF-3E1C1A778DB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1FF4770-3398-4440-8F9A-76FA7727902C} = {F1FF4770-3398-4440-8F9A-76FA7727902C}
+		{948C56E6-FBD7-468A-B51A-4477300B94E7} = {948C56E6-FBD7-468A-B51A-4477300B94E7}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartbeatReceiver", "HeartbeatReceiver\HeartbeatReceiver.csproj", "{F1FF4770-3398-4440-8F9A-76FA7727902C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor", "HeartbeatReceiver\Monitor.csproj", "{F1FF4770-3398-4440-8F9A-76FA7727902C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BDA582CE-C526-4221-9DDA-1C8F949919CF}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reactor", "Reactor\Reactor.csproj", "{948C56E6-FBD7-468A-B51A-4477300B94E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +33,10 @@ Global
 		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1FF4770-3398-4440-8F9A-76FA7727902C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948C56E6-FBD7-468A-B51A-4477300B94E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948C56E6-FBD7-468A-B51A-4477300B94E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948C56E6-FBD7-468A-B51A-4477300B94E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948C56E6-FBD7-468A-B51A-4477300B94E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

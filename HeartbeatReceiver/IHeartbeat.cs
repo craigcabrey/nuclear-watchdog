@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HeartbeatReceiver
 {
@@ -11,10 +7,12 @@ namespace HeartbeatReceiver
     public interface IHeartbeat
     {
         [OperationContract]
-        string Register();
+        Tuple<bool, string> Register();
+
         [OperationContract]
         void Unregister(string id);
+
         [OperationContract]
-        void Beat(string id);
+        bool Beat(string id);
     }
 }
